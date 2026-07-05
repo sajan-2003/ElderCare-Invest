@@ -19,6 +19,30 @@
 
 ---
 
+## 🚧 Current Status
+
+This project is currently in the **planning and documentation phase**.
+
+**Completed:**
+- ✅ Repository setup
+- ✅ Initial project structure
+- ✅ README documentation
+
+**Upcoming:**
+- 🔲 Requirements analysis
+- 🔲 Database design
+- 🔲 UI/UX wireframes
+- 🔲 Backend development
+- 🔲 Frontend development
+
+---
+
+## ⚠️ Disclaimer
+
+ElderCare-Invest is an **educational and portfolio project**. It is **not** a licensed financial, insurance, healthcare, or investment service.
+
+---
+
 ## 📖 Short Description
 
 **ElderCare-Invest** is a fintech-meets-healthcare platform that lets people start saving and investing for their future elder care decades before they need it. Rather than treating elder care as a retirement-age emergency, users build a dedicated financial plan over time — one that connects directly to real elder care facilities, healthcare providers, and insurance partners.
@@ -59,18 +83,18 @@ Long-term, ElderCare-Invest aims to become the **bridge between personal finance
 
 | Feature | Description | Status |
 |---|---|---|
-| 🔐 User Authentication & Profiles | Secure sign-up/login with profile management | Core |
-| 📈 Long-Term Investment Plans | Goal-based investment plans tailored to elder care | Core |
-| 📊 Investment Portfolio Dashboard | Real-time view of contributions, growth, and projections | Core |
-| 🧮 Retirement Savings Calculator | Estimate future elder care costs and savings needed | Core |
-| 🏥 Healthcare Plan Management | Manage healthcare plans linked to the user profile | Core |
-| 🏘️ Elder Care Facility Marketplace | Browse and compare partnered elder care facilities | Core |
-| 🛡️ Insurance Integration | Connect with insurance providers and policies | Core |
-| 💳 Online Payments | Secure recurring and one-time investment contributions | Core |
-| 📑 Financial Reports & Analytics | Downloadable reports and visual analytics | Core |
-| 🔔 Notifications & Reminders | Alerts for contributions, milestones, and renewals | Core |
-| 🗄️ Secure Document Storage | Encrypted storage for financial and medical documents | Core |
-| 🛠️ Admin Dashboard | Manage users, providers, and platform operations | Core |
+| 🔐 User Authentication & Profiles | Secure sign-up/login with profile management | Planned |
+| 📈 Long-Term Investment Plans | Goal-based investment plans tailored to elder care | Planned |
+| 📊 Investment Portfolio Dashboard | Real-time view of contributions, growth, and projections | Planned |
+| 🧮 Retirement Savings Calculator | Estimate future elder care costs and savings needed | Planned |
+| 🏥 Healthcare Plan Management | Manage healthcare plans linked to the user profile | Planned |
+| 🏘️ Elder Care Facility Marketplace | Browse and compare partnered elder care facilities | Planned |
+| 🛡️ Insurance Integration | Connect with insurance providers and policies | Planned |
+| 💳 Online Payments | Secure recurring and one-time investment contributions | Planned |
+| 📑 Financial Reports & Analytics | Downloadable reports and visual analytics | Planned |
+| 🔔 Notifications & Reminders | Alerts for contributions, milestones, and renewals | Planned |
+| 🗄️ Secure Document Storage | Encrypted storage for financial and medical documents | Planned |
+| 🛠️ Admin Dashboard | Manage users, providers, and platform operations | Planned |
 | 🤖 AI-Powered Recommendations | Personalized financial and care guidance using AI | **Future** |
 
 ---
@@ -119,34 +143,35 @@ Long-term, ElderCare-Invest aims to become the **bridge between personal finance
 > High-level architecture — subject to change as the system evolves.
 
 ```
-                         ┌────────────────────────┐
-                         │        Clients          │
-                         │  (Web App - React/TS)   │
-                         └────────────┬────────────┘
-                                      │ HTTPS / REST API
-                                      ▼
-                         ┌────────────────────────┐
-                         │     API Gateway /        │
-                         │   Express.js Backend     │
-                         └────────────┬────────────┘
-                     ┌────────────────┼────────────────┐
-                     ▼                ▼                ▼
-           ┌─────────────────┐ ┌─────────────┐ ┌──────────────────┐
-           │ Auth Service     │ │ Investment   │ │ Marketplace &     │
-           │ (JWT / OAuth)    │ │ Service      │ │ Provider Service  │
-           └─────────────────┘ └─────────────┘ └──────────────────┘
-                     │                │                │
-                     └────────────────┼────────────────┘
-                                      ▼
-                         ┌────────────────────────┐
-                         │     PostgreSQL DB        │
-                         └────────────┬────────────┘
-                                      │
-                                      ▼
-                         ┌────────────────────────┐
-                         │  Cloud Infrastructure    │
-                         │   (Docker + AWS)         │
-                         └────────────────────────┘
+                         ┌──────────────────────┐
+                         │       Clients        │
+                         │ (Web App - React/TS) │
+                         └──────────────────────┘
+                                     │ HTTPS / REST API
+                                     ▼
+                          ┌────────────────────┐
+                          │   API Gateway /    │
+                          │ Express.js Backend │
+                          └────────────────────┘
+                                     │
+                ┌────────────────────┴─────────────────┐
+                │                    │                  │
+        ┌───────────────┐   ┌────────────┐   ┌──────────────────┐
+        │ Auth Service  │   │ Investment │   │  Marketplace &   │
+        │ (JWT / OAuth) │   │  Service   │   │ Provider Service │
+        └───────────────┘   └────────────┘   └──────────────────┘
+                │                    │                  │
+                └────────────────────┴──────────────────┘
+                                     ▼
+                            ┌───────────────┐
+                            │ PostgreSQL DB │
+                            └───────────────┘
+                                     │
+                                     ▼
+                         ┌──────────────────────┐
+                         │ Cloud Infrastructure │
+                         │    (Docker + AWS)    │
+                         └──────────────────────┘
 ```
 
 <details>
@@ -164,29 +189,15 @@ Long-term, ElderCare-Invest aims to become the **bridge between personal finance
 ## 📁 Repository Structure
 
 ```
-eldercare-invest/
-├── client/                  # React + TypeScript frontend
-│   ├── src/
-│   │   ├── components/
-│   │   ├── pages/
-│   │   ├── hooks/
-│   │   ├── services/
-│   │   └── App.tsx
-│   ├── public/
-│   └── package.json
-│
-├── server/                  # Node.js + Express backend
-│   ├── src/
-│   │   ├── controllers/
-│   │   ├── routes/
-│   │   ├── models/
-│   │   ├── middleware/
-│   │   ├── services/
-│   │   └── index.ts
-│   ├── config/
-│   └── package.json
-│
+ElderCare-Invest/
+├── frontend/                 # React + TypeScript client application
+├── backend/                  # Node.js + Express server application
+├── database/                 # Database schemas, migrations, and seed data
 ├── docs/                     # Project documentation
+├── assets/                   # Images, diagrams, and static assets
+├── scripts/                  # Utility and automation scripts
+├── src/                      # Shared/core source code
+├── tests/                    # Test suites
 ├── docker-compose.yml
 ├── .env.example
 ├── LICENSE
@@ -199,6 +210,8 @@ eldercare-invest/
 
 ## ⚙️ Installation Guide
 
+> 📌 Installation instructions will be updated after frontend and backend setup is implemented. The steps below reflect the **planned** setup process.
+
 ### Prerequisites
 
 - Node.js `>= 18.x`
@@ -210,8 +223,8 @@ eldercare-invest/
 ### Clone the Repository
 
 ```bash
-git clone https://github.com/<your-username>/eldercare-invest.git
-cd eldercare-invest
+git clone https://github.com/sajan-2003/ElderCare-Invest.git
+cd ElderCare-Invest
 ```
 
 ### Install Dependencies
@@ -220,7 +233,7 @@ cd eldercare-invest
 <summary><strong>Frontend</strong></summary>
 
 ```bash
-cd client
+cd frontend
 npm install
 ```
 
@@ -230,7 +243,7 @@ npm install
 <summary><strong>Backend</strong></summary>
 
 ```bash
-cd server
+cd backend
 npm install
 ```
 
@@ -246,11 +259,11 @@ npm install
 # Start PostgreSQL locally, then run migrations (planned)
 
 # Start backend
-cd server
+cd backend
 npm run dev
 
 # Start frontend (in a separate terminal)
-cd client
+cd frontend
 npm run dev
 ```
 
@@ -266,7 +279,7 @@ The frontend will be available at `http://localhost:3000` and the backend API at
 
 ## 🔑 Environment Variables
 
-Create a `.env` file in the `server/` directory based on `.env.example`:
+Create a `.env` file in the `backend/` directory based on `.env.example`:
 
 ```env
 # Server
@@ -415,11 +428,10 @@ This project is licensed under the **MIT License** — see the [LICENSE](./LICEN
 
 ## 👤 Authors
 
-**[Your Name]**
+**Sajan Chamika**
 Founder & Lead Developer
 
-- GitHub: [@your-username](https://github.com/your-username)
-- LinkedIn: [Your LinkedIn Profile](https://linkedin.com/in/your-profile)
+- GitHub: [@sajan-2003](https://github.com/sajan-2003)
 
 ---
 
