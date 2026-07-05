@@ -155,7 +155,7 @@ Long-term, ElderCare-Invest aims to become the **bridge between personal finance
                           └────────────────────┘
                                      │
                 ┌────────────────────┴─────────────────┐
-                │                    │                  │
+                │                    │                 │
         ┌───────────────┐   ┌────────────┐   ┌──────────────────┐
         │ Auth Service  │   │ Investment │   │  Marketplace &   │
         │ (JWT / OAuth) │   │  Service   │   │ Provider Service │
