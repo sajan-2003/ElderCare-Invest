@@ -1,0 +1,26 @@
+@startuml Administration
+title Administration - Use Case Diagram
+top to bottom direction
+skinparam nodesep 50
+skinparam ranksep 60
+skinparam shadowing false
+
+actor Administrator
+
+rectangle "Administration" {
+  usecase "Manage Users" as UC29
+  usecase "Manage Investment Plans" as UC30
+  usecase "Manage Facilities" as UC31
+  usecase "Manage Reservations" as UC32
+  usecase "Manage Payments" as UC33
+  usecase "Generate System Reports" as UC34
+}
+
+Administrator --> UC29
+Administrator --> UC30
+Administrator --> UC31
+Administrator --> UC32
+Administrator --> UC33
+Administrator --> UC34
+
+@enduml

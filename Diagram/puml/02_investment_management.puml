@@ -1,0 +1,34 @@
+@startuml Investment_Management
+title Investment Management - Use Case Diagram
+top to bottom direction
+skinparam nodesep 50
+skinparam ranksep 60
+skinparam shadowing false
+
+actor Investor
+actor Guardian
+
+rectangle "Investment Management" {
+  usecase "Browse Investment Plans" as UC6
+  usecase "Select Investment Plan" as UC7
+  usecase "Make Investment Contribution" as UC8
+  usecase "Monitor Portfolio" as UC9
+  usecase "View Investment Growth Report" as UC10
+  usecase "Process Payment" as UC19
+}
+
+Investor --> UC6
+Investor --> UC7
+Investor --> UC8
+Investor --> UC9
+
+UC8 ..> UC19 : <<include>>
+UC10 ..> UC9 : <<extend>>
+
+note right of UC19
+  Process Payment is defined in the
+  Payments subsystem (05_payments.puml);
+  shown here to preserve the include link.
+end note
+
+@enduml

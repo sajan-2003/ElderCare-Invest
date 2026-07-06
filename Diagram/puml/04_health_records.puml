@@ -1,0 +1,25 @@
+@startuml Health_Records
+title Health Records Management - Use Case Diagram
+top to bottom direction
+skinparam nodesep 50
+skinparam ranksep 60
+skinparam shadowing false
+
+actor Investor
+actor Guardian
+actor "Facility Manager" as FM
+
+rectangle "Health Records" {
+  usecase "Manage Health Records" as UC15
+  usecase "Update Medical History" as UC16
+  usecase "Share Health Records" as UC17
+  usecase "View Dependent Health Records" as UC28
+}
+
+Investor --> UC15
+Investor --> UC16
+Investor --> UC17
+Guardian --> UC28
+FM --> UC17
+
+@enduml

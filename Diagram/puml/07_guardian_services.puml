@@ -1,0 +1,26 @@
+@startuml Guardian_Services
+title Guardian Services - Use Case Diagram
+top to bottom direction
+skinparam nodesep 50
+skinparam ranksep 60
+skinparam shadowing false
+
+actor Guardian
+
+rectangle "Guardian Services" {
+  usecase "Manage Dependent's Investment" as UC26
+  usecase "Reserve Facility for Dependent" as UC27
+  usecase "View Dependent Health Records" as UC28
+}
+
+Guardian --> UC26
+Guardian --> UC27
+Guardian --> UC28
+
+note right of UC27
+  Reserve Facility for Dependent includes
+  Reserve Facility from the Facility &
+  Reservation subsystem (03_facility_reservation.puml).
+end note
+
+@enduml

@@ -1,0 +1,59 @@
+@startuml Context_Diagram
+title Elder Care Investment Platform - System Context Diagram
+left to right direction
+skinparam packageStyle rectangle
+skinparam actorStyle awesome
+skinparam nodesep 60
+skinparam ranksep 80
+skinparam shadowing false
+
+actor Visitor
+actor Investor
+actor Guardian
+actor "Facility Manager" as FM
+actor Administrator
+actor "Payment Gateway" as PG <<external system>>
+actor "Notification Service" as NS <<external system>>
+
+Investor --|> Visitor
+Guardian --|> Investor
+
+rectangle "Elder Care Investment Platform" as System {
+  usecase "Account & Access" as P1
+  usecase "Investment Management" as P2
+  usecase "Facility & Reservation" as P3
+  usecase "Health Records" as P4
+  usecase "Payments" as P5
+  usecase "Communication" as P6
+  usecase "Guardian Services" as P7
+  usecase "Administration" as P8
+}
+
+Visitor --> P1
+Visitor --> P2
+Visitor --> P3
+
+Investor --> P1
+Investor --> P2
+Investor --> P3
+Investor --> P4
+Investor --> P5
+Investor --> P6
+
+Guardian --> P7
+
+FM --> P3
+FM --> P6
+
+Administrator --> P8
+
+PG --> P5
+NS --> P6
+
+note bottom of System
+  Detailed use cases for each subsystem
+  are provided in the numbered .puml files
+  (01 through 08) in this package.
+end note
+
+@enduml

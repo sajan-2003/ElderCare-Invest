@@ -1,0 +1,41 @@
+@startuml Facility_Reservation
+title Facility & Reservation - Use Case Diagram
+top to bottom direction
+skinparam nodesep 50
+skinparam ranksep 60
+skinparam shadowing false
+
+actor Investor
+actor Guardian
+actor "Facility Manager" as FM
+
+rectangle "Facility & Reservation" {
+  usecase "Browse Facilities" as UC11
+  usecase "View Facility Details" as UC12
+  usecase "Reserve Facility" as UC13
+  usecase "Cancel Reservation" as UC14
+  usecase "Make Payment" as UC18
+  usecase "Send Notification" as UC25
+}
+
+Investor --> UC11
+Investor --> UC12
+Investor --> UC13
+Investor --> UC14
+FM --> UC12
+
+UC13 ..> UC18 : <<include>>
+UC25 ..> UC13 : <<extend>>
+UC25 ..> UC14 : <<extend>>
+
+note right of UC18
+  Make Payment is defined in the
+  Payments subsystem (05_payments.puml).
+end note
+note right of UC25
+  Send Notification is triggered
+  by the Notification Service actor
+  (see 06_communication.puml).
+end note
+
+@enduml

@@ -1,0 +1,28 @@
+@startuml Account_Access
+title Account & Access Management - Use Case Diagram
+top to bottom direction
+skinparam nodesep 50
+skinparam ranksep 60
+skinparam shadowing false
+
+actor Visitor
+actor Investor
+actor Guardian
+
+rectangle "Account & Access" {
+  usecase "Register Account" as UC1
+  usecase "Login" as UC2
+  usecase "Manage Profile" as UC3
+  usecase "Verify Identity" as UC4
+  usecase "Authenticate User" as UC5
+}
+
+Visitor --> UC1
+Investor --> UC2
+Investor --> UC3
+Guardian --> UC2
+
+UC1 ..> UC4 : <<include>>
+UC2 ..> UC5 : <<include>>
+
+@enduml

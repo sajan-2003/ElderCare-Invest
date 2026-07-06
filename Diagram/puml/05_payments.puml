@@ -1,0 +1,27 @@
+@startuml Payments
+title Payments - Use Case Diagram
+top to bottom direction
+skinparam nodesep 50
+skinparam ranksep 60
+skinparam shadowing false
+
+actor Investor
+actor "Payment Gateway" as PG <<external system>>
+
+rectangle "Payments" {
+  usecase "Make Payment" as UC18
+  usecase "Process Payment" as UC19
+  usecase "View Payment History" as UC20
+  usecase "Generate Invoice" as UC21
+  usecase "Send Notification" as UC25
+}
+
+Investor --> UC18
+Investor --> UC20
+PG --> UC19
+
+UC18 ..> UC19 : <<include>>
+UC21 ..> UC18 : <<extend>>
+UC25 ..> UC18 : <<extend>>
+
+@enduml

@@ -1,0 +1,29 @@
+@startuml Communication
+title Communication - Use Case Diagram
+top to bottom direction
+skinparam nodesep 50
+skinparam ranksep 60
+skinparam shadowing false
+
+actor Investor
+actor Guardian
+actor "Facility Manager" as FM
+actor "Notification Service" as NS <<external system>>
+
+rectangle "Communication" {
+  usecase "Communicate with Facility Manager" as UC22
+  usecase "Send Message" as UC23
+  usecase "Respond to Inquiry" as UC24
+  usecase "Send Notification" as UC25
+}
+
+Investor --> UC22
+Guardian --> UC22
+FM --> UC22
+FM --> UC24
+NS --> UC25
+
+UC22 ..> UC23 : <<include>>
+UC24 ..> UC22 : <<extend>>
+
+@enduml
