@@ -1,0 +1,354 @@
+@startuml ElderNest_ClassDiagram
+skinparam classAttributeIconSize 0
+skinparam linetype ortho
+skinparam shadowing false
+skinparam class {
+    BackgroundColor White
+    BorderColor #2C3E50
+    ArrowColor #2C3E50
+}
+skinparam package {
+    BackgroundColor #F8F9FA
+    BorderColor #B0B8C0
+}
+title ElderNest – Future Elder Care Investment Platform\nUML Class Diagram
+
+' =====================================================
+' ENUMERATIONS
+' =====================================================
+enum UserStatus {
+    ACTIVE
+    SUSPENDED
+    PENDING
+    DEACTIVATED
+}
+
+enum KYCStatus {
+    NOT_SUBMITTED
+    PENDING
+    VERIFIED
+    REJECTED
+}
+
+enum PaymentStatus {
+    PENDING
+    COMPLETED
+    FAILED
+    REFUNDED
+}
+
+enum BookingStatus {
+    REQUESTED
+    APPROVED
+    REJECTED
+    CANCELLED
+    COMPLETED
+}
+
+enum InvestmentStatus {
+    ACTIVE
+    MATURED
+    REDEEMED
+    CANCELLED
+}
+
+enum NotificationChannel {
+    EMAIL
+    SMS
+    PUSH
+}
+
+' =====================================================
+' CORE USER HIERARCHY (Inheritance)
+' =====================================================
+abstract class User {
+    # userId : String
+    # fullName : String
+    # email : String
+    # passwordHash : String
+    # phoneNumber : String
+    # address : String
+    # status : UserStatus
+    # createdAt : Date
+    --
+    + register() : void
+    + login(email : String, password : String) : Boolean
+    + logout() : void
+    + updateProfile(details : Map) : void
+    + {abstract} getDashboard() : String
+}
+
+class Investor extends User {
+    - investorId : String
+    - kycStatus : KYCStatus
+    - riskProfile : String
+    --
+    + browseFacilities(criteria : String) : List<Facility>
+    + viewFacilityDetails(facilityId : String) : Facility
+    + purchaseInvestmentPlan(plan : InvestmentPlan) : Investment
+    + makeContribution(investment : Investment, amount : Double) : Contribution
+    + viewPortfolio() : Portfolio
+    + redeemInvestment(investment : Investment) : Boolean
+    + bookFacility(facility : Facility, room : Room) : Booking
+    + viewPaymentHistory() : List<Payment>
+    + getDashboard() : String
+}
+
+class Administrator extends User {
+    - adminId : String
+    - accessLevel : String
+    --
+    + manageUsers(user : User) : void
+    + manageFacilities(facility : Facility) : void
+    + manageInvestmentPlans(plan : InvestmentPlan) : void
+    + verifyKYC(kyc : KYCVerification) : void
+    + generateReport(type : String) : Report
+    + suspendAccount(user : User) : void
+    + manageSystemSettings(settings : Map) : void
+    + getDashboard() : String
+}
+
+class FacilityManager extends User {
+    - managerId : String
+    - licenseNumber : String
+    --
+    + manageFacility(facility : Facility) : void
+    + manageRooms(room : Room) : void
+    + manageServices(service : Service) : void
+    + managePricing(item : Object, price : Double) : void
+    + manageAvailability(room : Room, isAvailable : Boolean) : void
+    + approveBooking(booking : Booking) : void
+    + viewPayments() : List<Payment>
+    + getDashboard() : String
+}
+
+' =====================================================
+' FACILITY DOMAIN
+' =====================================================
+class Facility {
+    - facilityId : String
+    - name : String
+    - description : String
+    - location : String
+    - licenseNumber : String
+    - rating : Double
+    - isActive : Boolean
+    --
+    + addRoom(room : Room) : void
+    + removeRoom(roomId : String) : void
+    + addService(service : Service) : void
+    + getAvailableRooms() : List<Room>
+    + getFacilityDetails() : String
+}
+
+class Room {
+    - roomId : String
+    - roomType : String
+    - capacity : Integer
+    - pricePerMonth : Double
+    - isAvailable : Boolean
+    --
+    + updatePrice(price : Double) : void
+    + setAvailability(status : Boolean) : void
+    + getRoomInfo() : String
+}
+
+class Service {
+    - serviceId : String
+    - serviceName : String
+    - description : String
+    - price : Double
+    - isActive : Boolean
+    --
+    + updateService(details : Map) : void
+    + activate() : void
+    + deactivate() : void
+}
+
+' =====================================================
+' INVESTMENT DOMAIN
+' =====================================================
+class InvestmentPlan {
+    - planId : String
+    - planName : String
+    - description : String
+    - minimumAmount : Double
+    - durationMonths : Integer
+    - interestRate : Double
+    - isActive : Boolean
+    --
+    + calculateMaturityValue(principal : Double) : Double
+    + updatePlanDetails(details : Map) : void
+    + activatePlan() : void
+    + deactivatePlan() : void
+}
+
+class Investment {
+    - investmentId : String
+    - startDate : Date
+    - maturityDate : Date
+    - principalAmount : Double
+    - currentValue : Double
+    - status : InvestmentStatus
+    --
+    + addContribution(contribution : Contribution) : void
+    + calculateCurrentValue() : Double
+    + redeem() : Payment
+    + getStatus() : InvestmentStatus
+}
+
+class Contribution {
+    - contributionId : String
+    - amount : Double
+    - contributionDate : Date
+    - isRecurring : Boolean
+    --
+    + processContribution() : Payment
+    + getContributionDetails() : String
+}
+
+class Portfolio {
+    - portfolioId : String
+    - totalInvestedAmount : Double
+    - totalCurrentValue : Double
+    - lastUpdated : Date
+    --
+    + addInvestment(investment : Investment) : void
+    + calculateTotalValue() : Double
+    + getInvestmentSummary() : List<Investment>
+    + generateStatement() : String
+}
+
+' =====================================================
+' PAYMENT & BOOKING DOMAIN
+' =====================================================
+class Payment {
+    - paymentId : String
+    - amount : Double
+    - paymentDate : Date
+    - paymentMethod : String
+    - status : PaymentStatus
+    - transactionRef : String
+    --
+    + processPayment() : Boolean
+    + refund() : Boolean
+    + getReceipt() : String
+}
+
+class Booking {
+    - bookingId : String
+    - bookingDate : Date
+    - checkInDate : Date
+    - status : BookingStatus
+    --
+    + submitBooking() : void
+    + cancelBooking() : void
+    + confirmBooking() : void
+    + getBookingDetails() : String
+}
+
+class InsurancePolicy {
+    - policyId : String
+    - policyName : String
+    - coverageAmount : Double
+    - premium : Double
+    - startDate : Date
+    - endDate : Date
+    --
+    + calculatePremium() : Double
+    + isActive() : Boolean
+    + getPolicyDetails() : String
+}
+
+' =====================================================
+' SUPPORTING DOMAIN
+' =====================================================
+class KYCVerification {
+    - kycId : String
+    - documentType : String
+    - documentNumber : String
+    - submissionDate : Date
+    - verificationDate : Date
+    - status : KYCStatus
+    - remarks : String
+    --
+    + submitDocuments(docs : List<String>) : void
+    + verify() : void
+    + reject(reason : String) : void
+}
+
+class Notification {
+    - notificationId : String
+    - message : String
+    - channel : NotificationChannel
+    - sentAt : Date
+    - isRead : Boolean
+    --
+    + send() : Boolean
+    + markAsRead() : void
+}
+
+class Report {
+    - reportId : String
+    - reportType : String
+    - generatedDate : Date
+    - content : String
+    --
+    + generate() : void
+    + export(format : String) : String
+}
+
+' =====================================================
+' EXTERNAL SYSTEMS (Actors)
+' =====================================================
+interface PaymentGateway <<external>> {
+    + initiatePayment(amount : Double, method : String) : Boolean
+    + confirmTransaction(transactionRef : String) : PaymentStatus
+    + processRefund(paymentId : String) : Boolean
+}
+
+interface NotificationService <<external>> {
+    + sendEmail(to : String, message : String) : Boolean
+    + sendSMS(to : String, message : String) : Boolean
+    + sendPush(to : String, message : String) : Boolean
+}
+
+' =====================================================
+' RELATIONSHIPS - COMPOSITION (strong ownership)
+' =====================================================
+Investor "1" *-- "1" Portfolio : owns
+Investor "1" *-- "0..1" KYCVerification : submits
+Facility "1" *-- "1..*" Room : contains
+Facility "1" *-- "0..*" Service : offers
+Investment "1" *-- "1..*" Contribution : accumulates
+
+' =====================================================
+' RELATIONSHIPS - AGGREGATION (weaker ownership)
+' =====================================================
+Portfolio "1" o-- "0..*" Investment : aggregates
+FacilityManager "1" o-- "1..*" Facility : manages
+Administrator "1" o-- "0..*" Report : generates
+
+' =====================================================
+' RELATIONSHIPS - ASSOCIATION
+' =====================================================
+Investor "1" -- "0..*" Investment : purchases
+Investment "0..*" -- "1" InvestmentPlan : based on
+Investor "1" -- "0..*" Booking : requests
+Booking "0..*" -- "1" Facility : reserved at
+Booking "0..*" -- "0..1" Room : for
+FacilityManager "1" -- "0..*" Booking : approves
+Investor "1" -- "0..*" Notification : receives
+Administrator "1" -- "0..*" KYCVerification : verifies
+Investment "0..1" -- "0..1" InsurancePolicy : includes
+Contribution "1" -- "1" Payment : generates
+Booking "1" -- "0..1" Payment : requires
+Administrator "1" -- "0..*" InvestmentPlan : defines
+
+' =====================================================
+' RELATIONSHIPS - EXTERNAL SYSTEM DEPENDENCIES
+' =====================================================
+Payment ..> PaymentGateway : <<uses>>
+Notification ..> NotificationService : <<uses>>
+
+@enduml
