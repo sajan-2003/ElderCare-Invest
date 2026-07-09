@@ -1,0 +1,26 @@
+@startuml
+[*] --> Created
+
+Created --> PendingPayment : Payment Initiated
+PendingPayment --> Active : Payment Confirmed
+PendingPayment --> Cancelled : Payment Failed / Timeout
+
+Active --> MonthlyContribution : Contribution Due
+MonthlyContribution --> Active : Contribution Received
+
+Active --> Paused : Investor Pauses
+Paused --> Active : Investor Resumes
+
+Active --> Completed : Term Reached
+Completed --> Redeemed : Investor Redeems
+
+Active --> Expired : Term Expired without Renewal
+Paused --> Expired : Extended Inactivity
+
+Active --> Cancelled : Investor Cancels
+Paused --> Cancelled : Investor Cancels
+
+Redeemed --> [*]
+Expired --> [*]
+Cancelled --> [*]
+@enduml

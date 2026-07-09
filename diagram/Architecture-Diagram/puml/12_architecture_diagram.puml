@@ -1,0 +1,62 @@
+@startuml
+skinparam componentStyle rectangle
+
+package "Presentation Layer" {
+  [React Web Application] as UI
+}
+
+package "Application Layer" {
+  [REST Controllers] as REST
+  [Authentication] as AppAuth
+  [Investment] as AppInv
+  [Booking] as AppBook
+  [Facility] as AppFac
+  [Notification] as AppNotif
+}
+
+package "Business Layer" {
+  [Investment Logic] as InvLogic
+  [Booking Logic] as BookLogic
+  [Portfolio Management] as Portfolio
+  [Payment Processing] as PaymentProc
+}
+
+package "Persistence Layer" {
+  database "PostgreSQL" as PGDB
+  database "Redis Cache" as Redis
+}
+
+package "External Systems" {
+  [Payment Gateway] as PG
+  [Email API] as EmailAPI
+  [SMS API] as SMSAPI
+  [Identity Verification API] as IDVAPI
+}
+
+UI --> REST : HTTP/REST
+
+REST --> AppAuth
+REST --> AppInv
+REST --> AppBook
+REST --> AppFac
+REST --> AppNotif
+
+AppInv --> InvLogic
+AppBook --> BookLogic
+AppInv --> Portfolio
+AppInv --> PaymentProc
+AppBook --> PaymentProc
+
+InvLogic --> PGDB
+BookLogic --> PGDB
+Portfolio --> PGDB
+AppFac --> PGDB
+
+InvLogic --> Redis
+BookLogic --> Redis
+
+PaymentProc --> PG
+AppAuth --> IDVAPI
+AppNotif --> EmailAPI
+AppNotif --> SMSAPI
+@enduml

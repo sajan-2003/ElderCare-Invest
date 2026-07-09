@@ -1,0 +1,44 @@
+@startuml
+package "Shared" as Shared
+
+package "Authentication" as Auth
+package "Investment" as Investment
+package "Booking" as Booking
+package "Facility" as Facility
+package "Payment" as Payment
+package "Notification" as Notification
+package "Reporting" as Reporting
+package "Administration" as Administration
+
+Auth ..> Shared
+Investment ..> Shared
+Booking ..> Shared
+Facility ..> Shared
+Payment ..> Shared
+Notification ..> Shared
+Reporting ..> Shared
+Administration ..> Shared
+
+Investment ..> Auth
+Booking ..> Auth
+Administration ..> Auth
+
+Investment ..> Payment
+Booking ..> Payment
+
+Investment ..> Notification
+Booking ..> Notification
+Auth ..> Notification
+
+Booking ..> Facility
+Investment ..> Facility
+
+Reporting ..> Investment
+Reporting ..> Booking
+Reporting ..> Facility
+Reporting ..> Payment
+
+Administration ..> Investment
+Administration ..> Facility
+Administration ..> Auth
+@enduml

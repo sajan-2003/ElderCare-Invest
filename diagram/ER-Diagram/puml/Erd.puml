@@ -1,0 +1,290 @@
+@startuml ElderNest_ERD
+skinparam linetype ortho
+skinparam roundcorner 10
+skinparam shadowing false
+skinparam class {
+  BackgroundColor White
+  BorderColor Black
+  ArrowColor Black
+}
+hide circle
+hide empty methods
+hide empty members
+
+' ===================== AUTHENTICATION / USER =====================
+entity "User" as user {
+  * user_id : BIGINT <<PK>>
+  --
+  * email : VARCHAR(255) <<unique>>
+  * password_hash : VARCHAR(255)
+  * role : VARCHAR(20)
+  phone_number : VARCHAR(20)
+  first_name : VARCHAR(100)
+  last_name : VARCHAR(100)
+  date_of_birth : DATE
+  gender : VARCHAR(10)
+  address_line : VARCHAR(255)
+  city : VARCHAR(100)
+  country : VARCHAR(100)
+  * account_status : VARCHAR(20)
+  is_email_verified : BOOLEAN
+  created_at : TIMESTAMP
+  updated_at : TIMESTAMP
+}
+
+entity "Investor" as investor {
+  * investor_id : BIGINT <<PK>>
+  * user_id : BIGINT <<FK>>
+  --
+  occupation : VARCHAR(100)
+  annual_income_range : VARCHAR(50)
+  risk_profile : VARCHAR(20)
+  next_of_kin_name : VARCHAR(150)
+  next_of_kin_phone : VARCHAR(20)
+  created_at : TIMESTAMP
+}
+
+entity "Administrator" as admin {
+  * admin_id : BIGINT <<PK>>
+  * user_id : BIGINT <<FK>>
+  --
+  admin_level : VARCHAR(20)
+  department : VARCHAR(100)
+  created_at : TIMESTAMP
+}
+
+entity "FacilityManager" as facmgr {
+  * facility_manager_id : BIGINT <<PK>>
+  * user_id : BIGINT <<FK>>
+  --
+  employee_code : VARCHAR(50)
+  designation : VARCHAR(100)
+  created_at : TIMESTAMP
+}
+
+' ===================== KYC =====================
+entity "KYCVerification" as kyc {
+  * kyc_id : BIGINT <<PK>>
+  * investor_id : BIGINT <<FK>>
+  verified_by_admin_id : BIGINT <<FK>>
+  --
+  * document_type : VARCHAR(50)
+  * document_number : VARCHAR(100)
+  document_file_url : VARCHAR(255)
+  * verification_status : VARCHAR(20)
+  submitted_at : TIMESTAMP
+  verified_at : TIMESTAMP
+  remarks : VARCHAR(255)
+}
+
+' ===================== INVESTMENT PLANS / INVESTMENTS =====================
+entity "InvestmentPlan" as plan {
+  * plan_id : BIGINT <<PK>>
+  --
+  * plan_name : VARCHAR(150)
+  description : VARCHAR(500)
+  * minimum_amount : DECIMAL(14,2)
+  * duration_months : INT
+  * interest_rate : DECIMAL(5,2)
+  * plan_status : VARCHAR(20)
+  created_at : TIMESTAMP
+}
+
+entity "Investment" as investment {
+  * investment_id : BIGINT <<PK>>
+  * investor_id : BIGINT <<FK>>
+  * plan_id : BIGINT <<FK>>
+  --
+  * principal_amount : DECIMAL(14,2)
+  * start_date : DATE
+  * maturity_date : DATE
+  * investment_status : VARCHAR(20)
+  created_at : TIMESTAMP
+}
+
+entity "Contribution" as contribution {
+  * contribution_id : BIGINT <<PK>>
+  * investment_id : BIGINT <<FK>>
+  --
+  * due_date : DATE
+  * amount_due : DECIMAL(12,2)
+  paid_date : DATE
+  * contribution_status : VARCHAR(20)
+  created_at : TIMESTAMP
+}
+
+' ===================== PAYMENTS =====================
+entity "Payment" as payment {
+  * payment_id : BIGINT <<PK>>
+  * payer_user_id : BIGINT <<FK>>
+  contribution_id : BIGINT <<FK>>
+  booking_id : BIGINT <<FK>>
+  policy_id : BIGINT <<FK>>
+  --
+  * amount : DECIMAL(12,2)
+  * payment_method : VARCHAR(30)
+  * transaction_reference : VARCHAR(100) <<unique>>
+  * payment_status : VARCHAR(20)
+  paid_at : TIMESTAMP
+  created_at : TIMESTAMP
+}
+
+' ===================== FACILITY / ROOM / SERVICE =====================
+entity "Facility" as facility {
+  * facility_id : BIGINT <<PK>>
+  --
+  * facility_name : VARCHAR(150)
+  * license_number : VARCHAR(100) <<unique>>
+  address_line : VARCHAR(255)
+  city : VARCHAR(100)
+  country : VARCHAR(100)
+  contact_phone : VARCHAR(20)
+  contact_email : VARCHAR(255)
+  * capacity : INT
+  * facility_status : VARCHAR(20)
+  created_at : TIMESTAMP
+}
+
+entity "FacilityManagerAssignment" as facmgr_assign {
+  * assignment_id : BIGINT <<PK>>
+  * facility_manager_id : BIGINT <<FK>>
+  * facility_id : BIGINT <<FK>>
+  --
+  assigned_date : DATE
+  * assignment_status : VARCHAR(20)
+}
+
+entity "Room" as room {
+  * room_id : BIGINT <<PK>>
+  * facility_id : BIGINT <<FK>>
+  --
+  * room_number : VARCHAR(20)
+  * room_type : VARCHAR(50)
+  * capacity : INT
+  * price_per_month : DECIMAL(12,2)
+  * room_status : VARCHAR(20)
+  created_at : TIMESTAMP
+}
+
+entity "Service" as service {
+  * service_id : BIGINT <<PK>>
+  * facility_id : BIGINT <<FK>>
+  --
+  * service_name : VARCHAR(150)
+  description : VARCHAR(500)
+  * cost : DECIMAL(12,2)
+  category : VARCHAR(50)
+  * service_status : VARCHAR(20)
+  created_at : TIMESTAMP
+}
+
+' ===================== BOOKING =====================
+entity "Booking" as booking {
+  * booking_id : BIGINT <<PK>>
+  * investor_id : BIGINT <<FK>>
+  * facility_id : BIGINT <<FK>>
+  room_id : BIGINT <<FK>>
+  --
+  * booking_date : TIMESTAMP
+  * start_date : DATE
+  end_date : DATE
+  * booking_status : VARCHAR(20)
+  total_amount : DECIMAL(12,2)
+}
+
+entity "BookingService" as booking_service {
+  * booking_service_id : BIGINT <<PK>>
+  * booking_id : BIGINT <<FK>>
+  * service_id : BIGINT <<FK>>
+  --
+  * quantity : INT
+  * price_at_booking : DECIMAL(12,2)
+}
+
+' ===================== NOTIFICATIONS =====================
+entity "Notification" as notification {
+  * notification_id : BIGINT <<PK>>
+  * user_id : BIGINT <<FK>>
+  --
+  * title : VARCHAR(150)
+  * message : VARCHAR(500)
+  * notification_type : VARCHAR(30)
+  * is_read : BOOLEAN
+  created_at : TIMESTAMP
+}
+
+' ===================== INSURANCE =====================
+entity "InsurancePolicy" as policy {
+  * policy_id : BIGINT <<PK>>
+  * investor_id : BIGINT <<FK>>
+  investment_id : BIGINT <<FK>>
+  --
+  * provider_name : VARCHAR(150)
+  * policy_number : VARCHAR(100) <<unique>>
+  * coverage_amount : DECIMAL(14,2)
+  * premium_amount : DECIMAL(12,2)
+  * start_date : DATE
+  * end_date : DATE
+  * policy_status : VARCHAR(20)
+}
+
+' ===================== REPORTS =====================
+entity "Report" as report {
+  * report_id : BIGINT <<PK>>
+  * generated_by_admin_id : BIGINT <<FK>>
+  --
+  * report_type : VARCHAR(50)
+  parameters : VARCHAR(500)
+  file_url : VARCHAR(255)
+  generated_at : TIMESTAMP
+}
+
+' ===================== RELATIONSHIPS =====================
+
+' --- User specializations (1:1 optional) ---
+user ||--o| investor : "is"
+user ||--o| admin : "is"
+user ||--o| facmgr : "is"
+
+' --- Facility Manager <-> Facility (M:M via bridge) ---
+facmgr ||--o{ facmgr_assign : "manages"
+facility ||--o{ facmgr_assign : "managed via"
+
+' --- Facility -> Room / Service (1:M mandatory) ---
+facility ||--o{ room : "contains"
+facility ||--o{ service : "offers"
+
+' --- KYC ---
+investor ||--o{ kyc : "submits"
+admin |o--o{ kyc : "reviews"
+
+' --- Investment Plans / Investments / Contributions ---
+investor ||--o{ investment : "creates"
+plan ||--o{ investment : "subscribed as"
+investment ||--o{ contribution : "generates"
+
+' --- Insurance ---
+investor ||--o{ policy : "holds"
+investment |o--o{ policy : "backs"
+
+' --- Booking ---
+investor ||--o{ booking : "makes"
+facility ||--o{ booking : "hosts"
+room |o--o{ booking : "reserved in"
+
+booking ||--o{ booking_service : "includes"
+service ||--o{ booking_service : "included in"
+
+' --- Payments (settle contribution / booking / policy) ---
+user ||--o{ payment : "pays"
+contribution |o--o{ payment : "settled by"
+booking |o--o{ payment : "settled by"
+policy |o--o{ payment : "settled by"
+
+' --- Notifications ---
+user ||--o{ notification : "receives"
+
+' --- Reports ---
+admin ||--o{ report : "generates"
+
+@enduml

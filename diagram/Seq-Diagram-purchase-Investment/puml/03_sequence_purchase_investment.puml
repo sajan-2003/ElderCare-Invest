@@ -1,0 +1,54 @@
+@startuml
+actor Investor
+participant "Web Application" as Web
+participant "Investment Service" as InvSvc
+participant "Payment Gateway" as PG
+database "Investment Database" as DB
+participant "Notification Service" as NS
+
+Investor -> Web: Select Investment Plan
+activate Web
+
+Web -> InvSvc: Request plan purchase
+activate InvSvc
+
+InvSvc -> DB: Validate investor eligibility
+activate DB
+DB --> InvSvc: Eligibility confirmed
+deactivate DB
+
+InvSvc -> PG: Send payment request
+activate PG
+
+alt Payment Successful
+    PG --> InvSvc: Payment confirmed
+    deactivate PG
+
+    InvSvc -> DB: Create investment record
+    activate DB
+    DB --> InvSvc: Investment created
+    deactivate DB
+
+    InvSvc -> DB: Update portfolio
+    activate DB
+    DB --> InvSvc: Portfolio updated
+    deactivate DB
+
+    InvSvc -> NS: Send confirmation notification
+    activate NS
+    NS --> InvSvc: Notification sent
+    deactivate NS
+
+    InvSvc --> Web: Purchase successful
+    Web --> Investor: Display confirmation
+
+else Payment Failed
+    PG --> InvSvc: Payment declined
+    deactivate PG
+    InvSvc --> Web: Purchase failed
+    Web --> Investor: Display payment failure message
+end
+
+deactivate InvSvc
+deactivate Web
+@enduml

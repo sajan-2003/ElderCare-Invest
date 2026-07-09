@@ -1,0 +1,24 @@
+@startuml
+start
+:Login;
+:Browse Facilities;
+:View Rooms;
+:Select Room;
+:Check Availability;
+
+if (Available?) then (No)
+  :Choose Another Room;
+  stop
+else (Yes)
+  :Book Room;
+  :Process Payment;
+  if (Payment Successful?) then (No)
+    :Cancel Booking;
+    stop
+  else (Yes)
+    :Confirm Booking;
+    :Send Notification;
+    stop
+  endif
+endif
+@enduml

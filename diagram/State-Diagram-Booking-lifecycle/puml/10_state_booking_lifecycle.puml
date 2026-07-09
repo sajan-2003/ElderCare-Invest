@@ -1,0 +1,19 @@
+@startuml
+[*] --> Requested
+
+Requested --> PendingApproval : Submitted for Review
+PendingApproval --> Confirmed : Approved
+PendingApproval --> Rejected : Denied
+PendingApproval --> Expired : No Action Taken
+
+Confirmed --> CheckedIn : Guest Checks In
+Confirmed --> Cancelled : Cancelled Before Check-In
+Confirmed --> Expired : Check-In Window Missed
+
+CheckedIn --> Completed : Stay Completed
+
+Completed --> [*]
+Rejected --> [*]
+Expired --> [*]
+Cancelled --> [*]
+@enduml

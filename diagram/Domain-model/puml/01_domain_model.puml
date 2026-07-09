@@ -1,0 +1,53 @@
+@startuml
+skinparam classAttributeIconSize 0
+hide circle
+hide methods
+
+abstract class User
+
+class Investor
+class "Facility Manager" as FacilityManager
+class Administrator
+
+User <|-- Investor
+User <|-- FacilityManager
+User <|-- Administrator
+
+class Facility
+class Room
+class Service
+class "Investment Plan" as InvestmentPlan
+class Investment
+class Contribution
+class Booking
+class Portfolio
+class Payment
+class "Insurance Policy" as InsurancePolicy
+class Notification
+class "KYC Verification" as KYCVerification
+
+Facility "1" *-- "many" Room : contains
+Facility "1" *-- "many" Service : offers
+Facility "1" -- "many" InvestmentPlan : offers
+
+Investor "1" -- "1" Portfolio : owns
+Portfolio "1" -- "many" Investment : contains
+
+Investor "1" -- "many" Investment : makes
+InvestmentPlan "1" -- "many" Investment : instantiated as
+
+Investment "1" -- "many" Contribution : receives
+Investment "1" -- "many" Payment : generates
+Investment "1" -- "0..1" InsurancePolicy : covered by
+
+Investor "1" -- "many" Booking : makes
+Booking "many" -- "1" Facility : reserves
+Booking "many" -- "1" Room : reserves
+
+User "1" -- "many" Notification : receives
+Investor "1" -- "0..1" KYCVerification : undergoes
+
+FacilityManager "1" -- "many" Facility : manages
+Administrator "1" -- "many" InvestmentPlan : configures
+Administrator "1" -- "many" KYCVerification : verifies
+@enduml

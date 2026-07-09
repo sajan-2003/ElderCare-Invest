@@ -1,0 +1,52 @@
+@startuml
+package "Frontend" {
+  [React Application] as Frontend
+}
+
+package "Backend" {
+  [Authentication Service] as Auth
+  [Investment Service] as InvSvc
+  [Facility Service] as FacSvc
+  [Booking Service] as BookSvc
+  [Payment Service] as PaySvc
+  [Notification Service] as NotifSvc
+  [Reporting Service] as RepSvc
+}
+
+package "Database" {
+  database "PostgreSQL" as DB
+}
+
+package "External Systems" {
+  [Payment Gateway] as PG
+  [Email Service] as Email
+  [SMS Service] as SMS
+  [Identity Verification API] as IDV
+}
+
+Frontend --> Auth : uses
+Frontend --> InvSvc : uses
+Frontend --> FacSvc : uses
+Frontend --> BookSvc : uses
+Frontend --> RepSvc : uses
+
+Auth --> DB
+InvSvc --> DB
+FacSvc --> DB
+BookSvc --> DB
+PaySvc --> DB
+RepSvc --> DB
+
+InvSvc --> PaySvc : requests payment
+BookSvc --> PaySvc : requests payment
+PaySvc --> PG : processes via
+
+InvSvc --> NotifSvc : triggers
+BookSvc --> NotifSvc : triggers
+Auth --> NotifSvc : triggers
+
+NotifSvc --> Email : sends via
+NotifSvc --> SMS : sends via
+
+Auth --> IDV : verifies via
+@enduml

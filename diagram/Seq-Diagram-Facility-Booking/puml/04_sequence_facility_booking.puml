@@ -1,0 +1,63 @@
+@startuml
+actor Investor
+participant "Booking Service" as BS
+participant "Facility Service" as FS
+participant "Room Service" as RS
+participant "Payment Gateway" as PG
+participant "Notification Service" as NS
+
+Investor -> BS: Search facility
+activate BS
+BS -> FS: Query facilities
+activate FS
+FS --> BS: Facility list
+deactivate FS
+BS --> Investor: Display facilities
+deactivate BS
+
+Investor -> BS: Select room
+activate BS
+BS -> RS: Get room details
+activate RS
+RS --> BS: Room details
+deactivate RS
+
+BS -> RS: Check availability
+activate RS
+RS --> BS: Availability status
+deactivate RS
+
+alt Room Available
+    BS -> RS: Reserve room
+    activate RS
+    RS --> BS: Room reserved
+    deactivate RS
+
+    BS -> PG: Process payment
+    activate PG
+
+    alt Payment Successful
+        PG --> BS: Payment confirmed
+        deactivate PG
+        BS -> BS: Confirm booking
+        BS -> NS: Send confirmation notification
+        activate NS
+        NS --> BS: Notification sent
+        deactivate NS
+        BS --> Investor: Booking confirmed
+    else Payment Failed
+        PG --> BS: Payment declined
+        deactivate PG
+        BS -> RS: Release reserved room
+        activate RS
+        RS --> BS: Room released
+        deactivate RS
+        BS --> Investor: Booking failed - payment declined
+    end
+
+else Room Not Available
+    BS --> Investor: Room unavailable, choose another
+end
+
+deactivate BS
+@enduml

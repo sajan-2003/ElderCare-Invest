@@ -1,0 +1,54 @@
+@startuml
+node "User Browser" as Browser
+
+cloud "Internet" as Internet
+
+node "Web Server" {
+  artifact "React Frontend" as ReactApp
+  artifact "Nginx" as Nginx
+}
+
+node "Application Server" {
+  artifact "Express API Server" as API
+  artifact "Authentication Server" as AuthSrv
+  artifact "Investment Service" as InvSrv
+  artifact "Booking Service" as BookSrv
+  artifact "Notification Service" as NotifSrv
+}
+
+node "Database Server" {
+  database "PostgreSQL Database" as PGDB
+}
+
+node "Cache Server" {
+  database "Redis Cache" as Redis
+}
+
+cloud "Cloud Storage" as Storage
+cloud "Payment Gateway" as PG
+cloud "Email Service" as Email
+
+Browser --> Internet : HTTPS
+Internet --> Nginx : HTTPS
+Nginx --> ReactApp
+Nginx --> API : Reverse Proxy
+
+API --> AuthSrv
+API --> InvSrv
+API --> BookSrv
+API --> NotifSrv
+
+AuthSrv --> PGDB
+InvSrv --> PGDB
+BookSrv --> PGDB
+
+InvSrv --> Redis
+BookSrv --> Redis
+
+InvSrv --> PG : Payment API
+BookSrv --> PG : Payment API
+
+NotifSrv --> Email : SMTP
+
+API --> Storage : File Storage
+@enduml

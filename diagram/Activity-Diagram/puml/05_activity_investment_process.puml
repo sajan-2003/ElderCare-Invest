@@ -1,0 +1,23 @@
+@startuml
+start
+:Login;
+:Browse Plans;
+:Select Plan;
+:Complete KYC;
+
+if (KYC Approved?) then (No)
+  :Reject Investment;
+  stop
+else (Yes)
+  :Proceed Payment;
+  if (Payment Successful?) then (No)
+    :Retry;
+    stop
+  else (Yes)
+    :Create Investment;
+    :Update Portfolio;
+    :Send Notification;
+    stop
+  endif
+endif
+@enduml
