@@ -21,19 +21,52 @@
 
 ## 🚧 Current Status
 
-This project is currently in the **planning and documentation phase**.
+## 🚧 Current Status
 
-**Completed:**
-- ✅ Repository setup
-- ✅ Initial project structure
-- ✅ README documentation
+ElderNest is currently in the **foundation development phase**.
 
-**Upcoming:**
-- 🔲 Requirements analysis
-- 🔲 Database design
-- 🔲 UI/UX wireframes
-- 🔲 Backend development
-- 🔲 Frontend development
+### ✅ Completed
+
+- Repository structure finalized
+- Project vision and business model defined
+- Requirements documentation
+- Stakeholder analysis
+- Objectives
+- User stories
+- Functional & Non-functional requirements
+- Use Case documentation
+- UML Diagrams
+  - Use Case Diagram
+  - Activity Diagrams
+  - Sequence Diagrams
+  - Class Diagram
+  - Domain Model
+  - ER Diagram
+  - Component Diagram
+  - Deployment Diagram
+  - Package Diagram
+  - State Diagrams
+- Project architecture planning
+- Spring Boot backend initialized
+- Maven project configured
+- Development environment setup (Java 21, Maven, Git, IntelliJ, WSL)
+
+### 🚀 Currently Working On
+
+- Spring Boot backend architecture
+- REST API development
+- Database integration (PostgreSQL)
+- Authentication module
+
+### 📋 Next Milestones
+
+- User Authentication
+- User Management
+- Investment Management
+- Facility Management
+- Booking Module
+- Admin Dashboard
+- Frontend Development
 
 ---
 
@@ -111,8 +144,11 @@ Long-term, ElderCare-Invest aims to become the **bridge between personal finance
 - 🎨 Tailwind CSS
 
 **Backend**
-- 🟢 Node.js
-- 🚂 Express.js
+- Java 21
+- Spring Boot
+- Spring Web
+- Spring Data JPA
+- Maven
 
 **Database**
 - 🐘 PostgreSQL
@@ -151,7 +187,7 @@ Long-term, ElderCare-Invest aims to become the **bridge between personal finance
                                      ▼
                           ┌────────────────────┐
                           │   API Gateway /    │
-                          │ Express.js Backend │
+                          │ Spring Boot Backend│
                           └────────────────────┘
                                      │
                 ┌────────────────────┴─────────────────┐
@@ -352,20 +388,39 @@ AWS_REGION=your_aws_region
 
 ## 🗺️ Roadmap
 
-- [x] Project planning & architecture design
-- [ ] Core authentication & user profile module
-- [ ] Investment plan creation & portfolio dashboard
-- [ ] Retirement savings calculator
-- [ ] Elder care facility marketplace (MVP)
-- [ ] Payment gateway integration
-- [ ] Insurance provider integration
-- [ ] Admin dashboard
-- [ ] Financial reports & analytics module
-- [ ] Notifications & reminders system
-- [ ] Secure document storage
-- [ ] **Future:** AI-powered financial recommendations
-- [ ] **Future:** Mobile application (iOS/Android)
+### Phase 1 — Planning ✅
+- [x] Project idea validation
+- [x] Repository setup
+- [x] Documentation
+- [x] UML Design
+- [x] Architecture Design
 
+### Phase 2 — Backend 🚧
+- [x] Spring Boot project setup
+- [x] Maven configuration
+- [ ] Database configuration
+- [ ] JPA Entities
+- [ ] Authentication
+- [ ] REST APIs
+- [ ] Service Layer
+- [ ] Exception Handling
+
+### Phase 3 — Frontend
+- [ ] React setup
+- [ ] Dashboard
+- [ ] Investment Pages
+- [ ] Facility Pages
+- [ ] Authentication UI
+
+### Phase 4 — Integration
+- [ ] Backend + Frontend
+- [ ] Testing
+- [ ] Deployment
+
+### Phase 5 — MVP Release
+- [ ] Pilot version
+- [ ] Documentation
+- [ ] Demo Video
 ---
 
 ## 🚀 Future Improvements
