@@ -21,8 +21,6 @@
 
 ## 🚧 Current Status
 
-## 🚧 Current Status
-
 ElderNest is currently in the **foundation development phase**.
 
 ### ✅ Completed
