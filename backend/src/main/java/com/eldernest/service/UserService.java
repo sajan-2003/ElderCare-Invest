@@ -3,7 +3,7 @@ import org.springframework.stereotype.Service;
 import com.eldernest.model.User;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Scanner;
+
 
 @Service
 public class UserService {
