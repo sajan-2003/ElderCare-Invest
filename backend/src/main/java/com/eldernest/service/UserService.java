@@ -30,15 +30,21 @@ public class UserService {
         }
         return false;
     }
-    public User updateUser(Long id, User updatedUser){
-        Optional<User> exisingUser = userRepository.findById(id);
-        if (exisingUser.isPresent()){
-            User user = exisingUser.get();
+    public User updateUser(Long id, User updatedUser) {
+
+        Optional<User> existingUser = userRepository.findById(id);
+
+        if (existingUser.isPresent()) {
+
+            User user = existingUser.get();
+
             user.setName(updatedUser.getName());
             user.setEmail(updatedUser.getEmail());
             user.setRole(updatedUser.getRole());
+
             return userRepository.save(user);
         }
+
         return null;
-     }
+    }
 }
