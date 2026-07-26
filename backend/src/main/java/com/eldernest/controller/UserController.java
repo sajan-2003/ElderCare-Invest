@@ -3,6 +3,7 @@ import com.eldernest.model.User;
 import com.eldernest.service.UserService;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/v1/users")
@@ -17,8 +18,9 @@ public class UserController {
     public List<User> getAllUsers() {
         return userService.getAllUsers();
     }
+
     @GetMapping("/{id}")
-    public User getUserById(@PathVariable Long id) {
+    public Optional<User> getUserById(@PathVariable Long id) {
         return userService.getUserById(id);
     }
     @PostMapping
@@ -27,7 +29,8 @@ public class UserController {
     }
 
     @DeleteMapping("/{id}")
-    public boolean deleteUser(@PathVariable Long id){
+    public boolean deleteUser(@PathVariable Long id)
+    {
         return userService.deleteUser(id);
     }
 

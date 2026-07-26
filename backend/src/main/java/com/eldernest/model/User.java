@@ -16,8 +16,7 @@ public class User {
 
     }
 
-    public User(Long id, String name, String email,String role){
-        setId(id);
+    public User( String name, String email,String role){
         setName(name);
         setEmail(email);
         setRole(role);
