@@ -1,7 +1,7 @@
 package com.eldernest.service;
 import com.eldernest.repository.UserRepository;
 import org.springframework.stereotype.Service;
-import com.eldernest.model.User;
+import com.eldernest.entity.User;
 
 import java.util.List;
 import java.util.Optional;

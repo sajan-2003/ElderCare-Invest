@@ -1,5 +1,5 @@
 package com.eldernest.controller;
-import com.eldernest.model.User;
+import com.eldernest.entity.User;
 import com.eldernest.service.UserService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
