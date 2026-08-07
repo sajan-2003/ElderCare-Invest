@@ -1,499 +1,734 @@
-<div align="center">
-
 # 🧓💰 ElderCare-Invest
 
 ### Invest Early. Age Gracefully. Retire Prepared.
 
-**A digital platform that helps individuals invest and plan financially for their future elder care — starting from a young age.**
-
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](#-license)
-[![Status](https://img.shields.io/badge/status-in%20development-orange)](#-roadmap)
-[![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](#-contribution-guidelines)
-[![React](https://img.shields.io/badge/Frontend-React%20%2B%20TypeScript-61DAFB?logo=react&logoColor=white)](#-technology-stack)
-
-[![PostgreSQL](https://img.shields.io/badge/Database-PostgreSQL-4169E1?logo=postgresql&logoColor=white)](#-technology-stack)
-[![Docker](https://img.shields.io/badge/Container-Docker-2496ED?logo=docker&logoColor=white)](#-technology-stack)
-[![AWS](https://img.shields.io/badge/Cloud-AWS-FF9900?logo=amazonaws&logoColor=white)](#-technology-stack)
-
-</div>
+**ElderCare-Invest (ElderNest)** is an educational full-stack platform designed to help individuals financially prepare for their future elder care through long-term investment planning, facility discovery, room booking, and related care services.
 
 ---
 
 ## 🚧 Current Status
 
-ElderNest is currently in the **foundation development phase**.
+ElderNest is currently in the **backend development phase**.
+
+The project has moved beyond initial planning and now includes a working Spring Boot backend connected to a MySQL database with several REST CRUD modules implemented.
 
 ### ✅ Completed
 
-- Repository structure finalized
-- Project vision and business model defined
-- Requirements documentation
+#### Planning & Documentation
+
+- Repository structure
+- Project vision and business model
+- Problem statement
 - Stakeholder analysis
 - Objectives
+- Functional requirements
+- Non-functional requirements
 - User stories
-- Functional & Non-functional requirements
-- Use Case documentation
-- UML Diagrams
-  - Use Case Diagram
-  - Activity Diagrams
-  - Sequence Diagrams
-  - Class Diagram
-  - Domain Model
-  - ER Diagram
-  - Component Diagram
-  - Deployment Diagram
-  - Package Diagram
-  - State Diagrams
-- Project architecture planning
+- Use case documentation
+- API planning
+- Database design
+- Architecture planning
+- Development roadmap
+
+#### UML & System Design
+
+- Use Case Diagram
+- Activity Diagrams
+- Sequence Diagrams
+- Class Diagram
+- Domain Model
+- ER Diagram
+- Component Diagram
+- Deployment Diagram
+- Package Diagram
+- State Diagrams
+
+#### Backend Foundation
+
 - Spring Boot backend initialized
-- Maven project configured
-- Development environment setup (Java 21, Maven, Git, IntelliJ, WSL)
+- Java 21 configured
+- Maven configured
+- Layered backend architecture
+- MySQL database integration
+- Spring Data JPA integration
+- Hibernate ORM
+- REST API structure
+- Global exception handling
+- API response structure
+- Development profile configuration
+- Swagger / OpenAPI integration
+- Health-check endpoint
+- Environment-based database credentials
 
-### 🚀 Currently Working On
+#### Implemented Backend Modules
 
-- Spring Boot backend architecture
+- User CRUD
+- Investor CRUD
+- Investment Plan CRUD
+- Investment CRUD
+- Facility CRUD
+- Room CRUD
+- Booking CRUD
+- Facility Service CRUD
+
+#### Implemented Relationships
+
+- User → Investor
+- Investor → Investment
+- InvestmentPlan → Investment
+- Facility → Room
+- Facility → Booking
+- Room → Booking
+- Facility → Facility Service
+
+Request DTOs are being introduced for APIs involving entity relationships to avoid directly exposing or constructing incomplete JPA entities.
+
+---
+
+## 🚀 Currently Working On
+
+- Completing remaining JPA entities
+- Entity relationship implementation
+- Request/response DTO architecture
 - REST API development
-- Database integration (PostgreSQL)
-- Authentication module
-
-### 📋 Next Milestones
-
-- User Authentication
-- User Management
-- Investment Management
-- Facility Management
-- Booking Module
-- Admin Dashboard
-- Frontend Development
+- Backend validation
+- Exception handling improvements
+- Authentication and authorization
+- Testing backend modules
 
 ---
 
-## ⚠️ Disclaimer
+## 📋 Next Milestones
 
-ElderCare-Invest is an **educational and portfolio project**. It is **not** a licensed financial, insurance, healthcare, or investment service.
+- Complete remaining ERD entities
+- KYC Verification module
+- Contribution module
+- Payment module
+- Booking Service module
+- Notification module
+- Insurance Policy module
+- Administrator module
+- Facility Manager module
+- Report module
+- Spring Security
+- JWT authentication
+- Role-based authorization
+- Backend testing
+- Frontend development
+- Backend/frontend integration
 
 ---
 
-## 📖 Short Description
+# 📖 About the Project
 
-**ElderCare-Invest** is a fintech-meets-healthcare platform that lets people start saving and investing for their future elder care decades before they need it. Rather than treating elder care as a retirement-age emergency, users build a dedicated financial plan over time — one that connects directly to real elder care facilities, healthcare providers, and insurance partners.
+ElderCare-Invest addresses the problem of people waiting until retirement or a health crisis before financially preparing for elder care.
+
+The platform explores a model where individuals can begin planning and investing for future care earlier in life.
+
+The long-term goal is to connect:
+
+```text
+Financial Planning
+        +
+Long-Term Investment
+        +
+Elder Care Facilities
+        +
+Care Services
+        +
+Insurance
+        +
+Payments
+```
+
+through one integrated platform.
 
 ---
 
 ## ❗ Problem Statement
 
-- 🏥 Elder care and quality assisted living are **expensive and often unaffordable** when the need suddenly arises.
-- 📉 Most people **don't plan financially for elder care** until it's too late — usually during a health crisis.
-- 🧩 Financial planning tools and elder care services exist **in silos** — there's no single platform connecting long-term investment to actual care outcomes.
-- 🌐 Families are often left to **navigate elder care options alone**, without transparent pricing or verified providers.
-- 📊 There is a **lack of visibility** into how today's savings translate into tomorrow's care options.
+- 🏥 Quality elder care and assisted living can become expensive when the need suddenly arises.
+- 📉 Many people do not financially prepare specifically for elder care early in life.
+- 🧩 Financial planning and elder care services are often managed separately.
+- 🌐 Families may have difficulty comparing facilities, services, and associated costs.
+- 📊 Individuals may have limited visibility into how current financial planning could support future care needs.
 
 ---
 
 ## 💡 Solution Overview
 
-ElderCare-Invest addresses this gap by combining **long-term investment tools** with a **marketplace of vetted elder care, healthcare, and insurance providers**, allowing users to:
+ElderCare-Invest aims to provide a platform where users can:
 
-1. Start investing early through structured, goal-based plans.
-2. Track their portfolio growth toward a specific elder care goal.
-3. Explore and pre-plan with real elder care facilities and insurance providers.
-4. Manage healthcare plans and documents in one secure place.
-5. Receive timely reminders and reports to stay on track.
+1. Create and manage their profile.
+2. Explore long-term elder-care investment plans.
+3. Create and monitor investments.
+4. Make scheduled contributions.
+5. Browse elder care facilities.
+6. View rooms and facility services.
+7. Reserve rooms through the booking system.
+8. Add care services to bookings.
+9. Manage payments.
+10. Manage insurance policies.
+11. Receive notifications.
+12. Access reports related to investments and care planning.
 
 ---
 
 ## 🌍 Vision
 
-> To make **quality elder care a plannable, affordable outcome** — not a financial emergency — by empowering individuals to start investing in their future care from the earliest years of their careers.
+> To make quality elder care a plannable and financially prepared outcome rather than an unexpected financial emergency.
 
-Long-term, ElderCare-Invest aims to become the **bridge between personal finance and aging-in-dignity**, trusted by individuals, families, and institutions alike.
+Long term, ElderCare-Invest aims to explore how technology can bridge **personal financial planning and future elder care services**.
 
 ---
 
-## ✨ Key Features
+# ✨ Core Modules
 
-| Feature | Description | Status |
+| Module | Purpose | Status |
 |---|---|---|
-| 🔐 User Authentication & Profiles | Secure sign-up/login with profile management | Planned |
-| 📈 Long-Term Investment Plans | Goal-based investment plans tailored to elder care | Planned |
-| 📊 Investment Portfolio Dashboard | Real-time view of contributions, growth, and projections | Planned |
-| 🧮 Retirement Savings Calculator | Estimate future elder care costs and savings needed | Planned |
-| 🏥 Healthcare Plan Management | Manage healthcare plans linked to the user profile | Planned |
-| 🏘️ Elder Care Facility Marketplace | Browse and compare partnered elder care facilities | Planned |
-| 🛡️ Insurance Integration | Connect with insurance providers and policies | Planned |
-| 💳 Online Payments | Secure recurring and one-time investment contributions | Planned |
-| 📑 Financial Reports & Analytics | Downloadable reports and visual analytics | Planned |
-| 🔔 Notifications & Reminders | Alerts for contributions, milestones, and renewals | Planned |
-| 🗄️ Secure Document Storage | Encrypted storage for financial and medical documents | Planned |
-| 🛠️ Admin Dashboard | Manage users, providers, and platform operations | Planned |
-| 🤖 AI-Powered Recommendations | Personalized financial and care guidance using AI | **Future** |
+| 👤 User Management | Manage platform users and profiles | ✅ CRUD Implemented |
+| 💼 Investor Management | Manage investor-specific information | ✅ CRUD Implemented |
+| 📋 Investment Plans | Manage available investment plans | ✅ CRUD Implemented |
+| 📈 Investments | Connect investors with investment plans | ✅ CRUD Implemented |
+| 🏥 Facilities | Manage elder care facilities | ✅ CRUD Implemented |
+| 🚪 Rooms | Manage rooms belonging to facilities | ✅ CRUD Implemented |
+| 📅 Bookings | Reserve rooms/facilities | ✅ CRUD Implemented |
+| 🩺 Facility Services | Manage services offered by facilities | ✅ CRUD Implemented |
+| 🪪 KYC Verification | Investor identity verification | 🔜 Planned |
+| 💰 Contributions | Investment contribution scheduling | 🔜 Planned |
+| 💳 Payments | Process platform payments | 🔜 Planned |
+| 🛡️ Insurance | Manage investor insurance policies | 🔜 Planned |
+| 🔔 Notifications | User alerts and reminders | 🔜 Planned |
+| 📑 Reports | Administrative and financial reports | 🔜 Planned |
+| 🔐 Authentication | Login and authorization | 🚧 In Development |
+| 🤖 AI Recommendations | Future financial/care recommendations | 🔮 Future |
 
 ---
 
-## 🧰 Technology Stack
+# 🧰 Technology Stack
 
-<table>
-<tr>
-<td valign="top" width="50%">
+## Backend
 
-**Frontend**
-- ⚛️ React
-- 🟦 TypeScript
-- 🎨 Tailwind CSS
-
-**Backend**
 - Java 21
 - Spring Boot
 - Spring Web
 - Spring Data JPA
+- Hibernate ORM
 - Maven
+- Lombok
+- Swagger / OpenAPI
 
-**Database**
-- 🐘 PostgreSQL
+## Database
 
-</td>
-<td valign="top" width="50%">
+- MySQL 8
 
-**Authentication**
-- 🔑 JWT
-- 🌐 OAuth
+## Planned Frontend
 
-**Cloud & DevOps**
-- 🐳 Docker
-- ☁️ AWS
+- React
+- TypeScript
+- Tailwind CSS
 
-**Version Control & Docs**
-- 🔧 Git & GitHub
-- 📝 Markdown
+## Planned Authentication
 
-</td>
-</tr>
-</table>
+- Spring Security
+- JWT
+- OAuth
 
----
+## Planned DevOps / Deployment
 
-## 🏗️ System Architecture Overview
+- Docker
+- AWS
 
-> High-level architecture — subject to change as the system evolves.
+## Development Tools
 
-```
-                         ┌──────────────────────┐
-                         │       Clients        │
-                         │ (Web App - React/TS) │
-                         └──────────────────────┘
-                                     │ HTTPS / REST API
-                                     ▼
-                          ┌────────────────────┐
-                          │   API Gateway /    │
-                          │ Spring Boot Backend│
-                          └────────────────────┘
-                                     │
-                ┌────────────────────┴─────────────────┐
-                │                    │                 │
-        ┌───────────────┐   ┌────────────┐   ┌──────────────────┐
-        │ Auth Service  │   │ Investment │   │  Marketplace &   │
-        │ (JWT / OAuth) │   │  Service   │   │ Provider Service │
-        └───────────────┘   └────────────┘   └──────────────────┘
-                │                    │                  │
-                └────────────────────┴──────────────────┘
-                                     ▼
-                            ┌───────────────┐
-                            │ PostgreSQL DB │
-                            └───────────────┘
-                                     │
-                                     ▼
-                         ┌──────────────────────┐
-                         │ Cloud Infrastructure │
-                         │    (Docker + AWS)    │
-                         └──────────────────────┘
-```
-
-<details>
-<summary>📌 Architectural Notes</summary>
-
-- The backend follows a **modular service-oriented structure** within a monolithic Express.js application (future potential to evolve into microservices).
-- PostgreSQL serves as the **single source of truth** for user, investment, and provider data.
-- Authentication is handled via **JWT for session management** and **OAuth for third-party logins**.
-- The application is containerized with **Docker** for consistent local development and deployment, and hosted on **AWS**.
-
-</details>
+- Git
+- GitHub
+- IntelliJ IDEA
+- VS Code
+- WSL2 / Ubuntu
+- Postman
 
 ---
 
-## 📁 Repository Structure
+# 🏗️ Backend Architecture
 
+The current backend follows a layered Spring Boot architecture.
+
+```text
+                    Client / Postman
+                           │
+                           │ HTTP / REST
+                           ▼
+                 ┌───────────────────┐
+                 │    Controller     │
+                 └─────────┬─────────┘
+                           │
+                           ▼
+                 ┌───────────────────┐
+                 │      Service      │
+                 │ Business Logic    │
+                 └─────────┬─────────┘
+                           │
+                           ▼
+                 ┌───────────────────┐
+                 │    Repository     │
+                 │ Spring Data JPA   │
+                 └─────────┬─────────┘
+                           │
+                           ▼
+                 ┌───────────────────┐
+                 │      MySQL        │
+                 │  eldernest_db     │
+                 └───────────────────┘
 ```
+
+For APIs involving relationships, request DTOs can sit between the client and controller:
+
+```text
+JSON Request
+     │
+     ▼
+Request DTO
+     │
+     ▼
+Controller
+     │
+     ▼
+Service
+     │
+     ├── Find related entities
+     │
+     ▼
+Repository
+     │
+     ▼
+MySQL
+```
+
+---
+
+# 🔗 Current Domain Relationships
+
+The project is based on the ElderNest ERD.
+
+Examples of implemented and planned relationships include:
+
+```text
+User
+ │
+ └── Investor
+
+Investor
+ │
+ ├── Investments
+ ├── Bookings
+ ├── KYC Verifications
+ └── Insurance Policies
+
+InvestmentPlan
+ │
+ └── Investments
+
+Investment
+ │
+ └── Contributions
+
+Facility
+ │
+ ├── Rooms
+ ├── Services
+ └── Bookings
+
+Booking
+ │
+ ├── Room
+ └── Booking Services
+```
+
+For example:
+
+```text
+Facility 1 ─────────── * FacilityService
+```
+
+is represented in JPA using a `@ManyToOne` relationship from `FacilityService` to `Facility`.
+
+---
+
+# 📁 Repository Structure
+
+```text
 ElderCare-Invest/
-├── frontend/                 # React + TypeScript client application
-├── backend/                  # Node.js + Express server application
-├── database/                 # Database schemas, migrations, and seed data
-├── docs/                     # Project documentation
-├── assets/                   # Images, diagrams, and static assets
-├── scripts/                  # Utility and automation scripts
-├── src/                      # Shared/core source code
-├── tests/                    # Test suites
-├── docker-compose.yml
-├── .env.example
-├── LICENSE
-└── README.md
+│
+├── backend/
+│   ├── src/main/java/com/eldernest/
+│   │   ├── config/
+│   │   ├── controller/
+│   │   ├── dto/
+│   │   ├── entity/
+│   │   ├── exception/
+│   │   ├── repository/
+│   │   ├── service/
+│   │   └── ElderNestApplication.java
+│   │
+│   ├── src/main/resources/
+│   │   └── application.properties
+│   │
+│   └── pom.xml
+│
+├── frontend/
+├── database/
+├── docs/
+├── diagrams/
+├── assets/
+├── scripts/
+├── tests/
+├── README.md
+└── LICENSE
 ```
 
-> ⚠️ Structure reflects the planned project layout and may evolve as development progresses.
+> The repository structure will continue to evolve as frontend development, security, testing, and deployment are introduced.
 
 ---
 
-## ⚙️ Installation Guide
+# ⚙️ Backend Setup
 
-> 📌 Installation instructions will be updated after frontend and backend setup is implemented. The steps below reflect the **planned** setup process.
+## Prerequisites
 
-### Prerequisites
+Install:
 
-- Node.js `>= 18.x`
-- npm or yarn
-- PostgreSQL `>= 14.x`
-- Docker (optional, for containerized setup)
+- Java 21
+- Maven
+- MySQL 8
 - Git
 
-### Clone the Repository
+Verify:
+
+```bash
+java -version
+mvn -version
+mysql --version
+git --version
+```
+
+---
+
+## Clone the Repository
 
 ```bash
 git clone https://github.com/sajan-2003/ElderCare-Invest.git
-cd ElderCare-Invest
+cd ElderCare-Invest/backend
 ```
-
-### Install Dependencies
-
-<details>
-<summary><strong>Frontend</strong></summary>
-
-```bash
-cd frontend
-npm install
-```
-
-</details>
-
-<details>
-<summary><strong>Backend</strong></summary>
-
-```bash
-cd backend
-npm install
-```
-
-</details>
 
 ---
 
-## ▶️ Running the Project
+# 🗄️ Database Setup
 
-### Option 1: Manual Setup
+Create the database:
 
-```bash
-# Start PostgreSQL locally, then run migrations (planned)
-
-# Start backend
-cd backend
-npm run dev
-
-# Start frontend (in a separate terminal)
-cd frontend
-npm run dev
+```sql
+CREATE DATABASE eldernest_db;
 ```
 
-### Option 2: Using Docker
+The Spring Boot application uses environment variables for database credentials.
+
+Linux / WSL example:
 
 ```bash
-docker-compose up --build
+export DB_USERNAME='your_mysql_username'
+export DB_PASSWORD='your_mysql_password'
 ```
 
-The frontend will be available at `http://localhost:3000` and the backend API at `http://localhost:5000` *(default ports — configurable via environment variables)*.
+The datasource configuration uses:
+
+```properties
+spring.datasource.url=jdbc:mysql://localhost:3306/eldernest_db
+spring.datasource.username=${DB_USERNAME}
+spring.datasource.password=${DB_PASSWORD}
+
+spring.jpa.hibernate.ddl-auto=update
+spring.jpa.show-sql=true
+```
+
+> 🔒 Database credentials should never be committed directly to GitHub.
 
 ---
 
-## 🔑 Environment Variables
+# ▶️ Running the Backend
 
-Create a `.env` file in the `backend/` directory based on `.env.example`:
+From:
 
-```env
-# Server
-PORT=5000
-NODE_ENV=development
-
-# Database
-DATABASE_URL=postgresql://username:password@localhost:5432/eldercare_invest
-
-# Authentication
-JWT_SECRET=your_jwt_secret_here
-OAUTH_CLIENT_ID=your_oauth_client_id
-OAUTH_CLIENT_SECRET=your_oauth_client_secret
-
-# Payments (Planned integration)
-PAYMENT_GATEWAY_KEY=your_payment_gateway_key
-
-# Cloud / AWS (Planned integration)
-AWS_ACCESS_KEY_ID=your_aws_access_key
-AWS_SECRET_ACCESS_KEY=your_aws_secret_key
-AWS_REGION=your_aws_region
+```text
+ElderCare-Invest/backend
 ```
 
-> 🔒 Never commit your actual `.env` file. Use `.env.example` as a template.
+run:
+
+```bash
+mvn spring-boot:run
+```
+
+The backend runs by default at:
+
+```text
+http://localhost:8080
+```
 
 ---
 
-## 🔌 API Overview
+# ❤️ Health Check
 
-> The API follows RESTful principles. Endpoints below represent the **planned initial API surface**.
+A health endpoint is available for checking whether the backend is running.
 
-| Method | Endpoint | Description | Status |
-|---|---|---|---|
-| `POST` | `/api/auth/register` | Register a new user | Planned |
-| `POST` | `/api/auth/login` | Authenticate a user | Planned |
-| `GET` | `/api/users/me` | Get current user profile | Planned |
-| `POST` | `/api/investments` | Create a new investment plan | Planned |
-| `GET` | `/api/investments/:userId` | Get user's investment portfolio | Planned |
-| `GET` | `/api/facilities` | Browse elder care facility marketplace | Planned |
-| `POST` | `/api/insurance/link` | Link an insurance policy | Planned |
-| `POST` | `/api/payments` | Process an investment payment | Planned |
-| `GET` | `/api/reports/:userId` | Fetch financial reports & analytics | Planned |
+```http
+GET /api/v1/health
+```
 
-<details>
-<summary>📄 Sample Response Format</summary>
+Example:
+
+```text
+http://localhost:8080/api/v1/health
+```
+
+---
+
+# 🔌 Current REST API
+
+The backend uses versioned REST endpoints:
+
+```text
+/api/v1/...
+```
+
+Current modules include endpoints for:
+
+```text
+/api/v1/users
+/api/v1/investors
+/api/v1/investment-plans
+/api/v1/investments
+/api/v1/facilities
+/api/v1/rooms
+/api/v1/bookings
+/api/v1/services
+```
+
+Each completed CRUD module generally supports:
+
+| Method | Purpose |
+|---|---|
+| `POST` | Create resource |
+| `GET` | Retrieve resources |
+| `GET /{id}` | Retrieve resource by ID |
+| `PUT /{id}` | Update resource |
+| `DELETE /{id}` | Delete resource |
+
+---
+
+# 🩺 Example: Facility Service API
+
+Create a service for an existing facility:
+
+```http
+POST /api/v1/services
+```
+
+Example request:
 
 ```json
 {
-  "success": true,
-  "data": {
-    "id": "uuid",
-    "message": "Resource retrieved successfully"
-  }
+  "facilityId": 2,
+  "serviceName": "Physiotherapy",
+  "description": "Professional physiotherapy sessions for elderly residents",
+  "cost": 5000.00,
+  "category": "Healthcare",
+  "serviceStatus": "ACTIVE"
 }
 ```
 
-</details>
+The backend resolves `facilityId` to the corresponding `Facility` entity before storing the relationship.
+
+Conceptually:
+
+```text
+POST Request
+     │
+     │ facilityId = 2
+     ▼
+FacilityServiceRequest
+     │
+     ▼
+FacilityServiceController
+     │
+     ▼
+FacilityServiceService
+     │
+     ├── FacilityRepository.findById(2)
+     │
+     ▼
+FacilityServiceRepository.save(...)
+     │
+     ▼
+MySQL
+```
 
 ---
 
-## 🖼️ Screenshots
+# 🗺️ Development Roadmap
 
-> 📌 Screenshots and UI previews will be added here as development progresses.
+## Phase 1 — Planning & Design ✅
 
-| Dashboard | Investment Portfolio | Marketplace |
-|---|---|---|
-| *Coming Soon* | *Coming Soon* | *Coming Soon* |
-
----
-
-## 🗺️ Roadmap
-
-### Phase 1 — Planning ✅
-- [x] Project idea validation
+- [x] Project idea
 - [x] Repository setup
-- [x] Documentation
-- [x] UML Design
-- [x] Architecture Design
+- [x] Requirements
+- [x] Stakeholder analysis
+- [x] User stories
+- [x] Use cases
+- [x] ERD
+- [x] UML diagrams
+- [x] Architecture design
+- [x] API planning
 
-### Phase 2 — Backend 🚧
-- [x] Spring Boot project setup
+## Phase 2 — Backend 🚧
+
+- [x] Spring Boot setup
 - [x] Maven configuration
-- [ ] Database configuration
-- [ ] JPA Entities
+- [x] MySQL configuration
+- [x] Spring Data JPA
+- [x] User CRUD
+- [x] Investor CRUD
+- [x] Investment Plan CRUD
+- [x] Investment CRUD
+- [x] Facility CRUD
+- [x] Room CRUD
+- [x] Booking CRUD
+- [x] Facility Service CRUD
+- [x] Basic exception handling
+- [x] Swagger/OpenAPI setup
+- [ ] Remaining JPA entities
+- [ ] Validation
 - [ ] Authentication
-- [ ] REST APIs
-- [ ] Service Layer
-- [ ] Exception Handling
+- [ ] JWT authorization
+- [ ] Role-based access control
+- [ ] Automated tests
 
-### Phase 3 — Frontend
-- [ ] React setup
-- [ ] Dashboard
-- [ ] Investment Pages
-- [ ] Facility Pages
+## Phase 3 — Frontend
+
+- [ ] React + TypeScript setup
 - [ ] Authentication UI
+- [ ] User dashboard
+- [ ] Investment dashboard
+- [ ] Facility marketplace
+- [ ] Booking interface
+- [ ] Admin dashboard
 
-### Phase 4 — Integration
-- [ ] Backend + Frontend
-- [ ] Testing
+## Phase 4 — Integration
+
+- [ ] Connect frontend and backend
+- [ ] API integration testing
+- [ ] Security testing
+- [ ] Dockerization
 - [ ] Deployment
 
-### Phase 5 — MVP Release
-- [ ] Pilot version
-- [ ] Documentation
-- [ ] Demo Video
----
+## Phase 5 — MVP
 
-## 🚀 Future Improvements
-
-- 🤖 AI-driven personalized investment and care recommendations
-- 📱 Native mobile applications
-- 🌐 Multi-language and multi-currency support
-- 🏢 Dedicated portals for elder care organizations and insurance providers
-- 📡 Open API for third-party healthcare/insurance integrations
-- 🔍 Advanced analytics and predictive cost modeling
+- [ ] MVP testing
+- [ ] Deployment
+- [ ] Final documentation
+- [ ] Demo
+- [ ] Portfolio presentation
 
 ---
 
-## 🛡️ Security Considerations
+# 🔮 Future Improvements
 
-- 🔐 Passwords are never stored in plain text — hashed using industry-standard algorithms (planned).
-- 🔑 Authentication is handled via **JWT** with **OAuth** support for third-party sign-in.
-- 🗄️ Sensitive documents and financial data will be encrypted at rest and in transit.
-- 🧾 Environment variables and secrets are excluded from version control via `.gitignore`.
-- 🧪 Planned: rate limiting, input validation, and dependency vulnerability scanning.
-- ☁️ Cloud infrastructure (AWS) will follow least-privilege IAM access principles.
-
-> ⚠️ Security features marked above reflect intended design standards and will be implemented progressively.
-
----
-
-## 🤝 Contribution Guidelines
-
-Contributions are welcome! To contribute:
-
-1. **Fork** the repository
-2. Create a new branch
-   ```bash
-   git checkout -b feature/your-feature-name
-   ```
-3. Commit your changes
-   ```bash
-   git commit -m "Add: your feature description"
-   ```
-4. Push to your branch
-   ```bash
-   git push origin feature/your-feature-name
-   ```
-5. Open a **Pull Request** with a clear description of your changes
-
-### Guidelines
-
-- Follow existing code style and naming conventions.
-- Write clear, descriptive commit messages.
-- Ensure your code is well-documented.
-- Test your changes before submitting a PR.
+- 🤖 AI-powered investment and elder-care recommendations
+- 📱 Mobile applications
+- 🌐 Multi-language support
+- 💱 Multi-currency support
+- 🏢 Dedicated facility/provider portals
+- 📡 Third-party healthcare and insurance integrations
+- 📊 Predictive elder-care cost modelling
+- ☁️ Cloud deployment and monitoring
 
 ---
 
-## 📄 License
+# 🛡️ Security Considerations
 
-This project is licensed under the **MIT License** — see the [LICENSE](./LICENSE) file for details.
+The project is being designed with:
+
+- Password hashing
+- Spring Security
+- JWT authentication
+- Role-based authorization
+- Environment-based secrets
+- Input validation
+- Secure REST APIs
+- HTTPS for production
+- Dependency vulnerability monitoring
+- Least-privilege cloud access
+
+Authentication and advanced security functionality are still under development.
 
 ---
 
-## 👤 Authors
+# ⚠️ Disclaimer
 
-**Sajan Chamika**
+ElderCare-Invest is an **educational and portfolio project**.
+
+It is not currently a licensed financial, investment, healthcare, insurance, or elder-care service. Financial calculations, investment concepts, healthcare integrations, and insurance functionality implemented in this project are for educational and demonstration purposes.
+
+---
+
+# 🤝 Contributing
+
+1. Fork the repository.
+
+2. Create a feature branch:
+
+```bash
+git switch -c feature/your-feature-name
+```
+
+3. Stage your changes:
+
+```bash
+git add .
+```
+
+4. Commit:
+
+```bash
+git commit -m "Add feature description"
+```
+
+5. Push:
+
+```bash
+git push origin feature/your-feature-name
+```
+
+6. Open a Pull Request.
+
+Please keep commits focused and use clear commit messages.
+
+---
+
+# 📄 License
+
+This project is licensed under the **MIT License**. See the `LICENSE` file for details.
+
+---
+
+# 👤 Author
+
+**Sajan Chamika**  
 Founder & Lead Developer
 
-- GitHub: [@sajan-2003](https://github.com/sajan-2003)
+GitHub: `@sajan-2003`
 
 ---
-
-<div align="center">
 
 ### 💬 "Plan today. Age with dignity tomorrow."
 
-**ElderCare-Invest** — Built with ❤️ to make elder care planning accessible for everyone.
-
-⭐ If you find this project interesting, consider giving it a star on GitHub!
-
-</div>
+**ElderCare-Invest — building a bridge between long-term financial planning and future elder care.**
