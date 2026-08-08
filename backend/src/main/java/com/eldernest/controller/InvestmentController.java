@@ -2,6 +2,7 @@ package com.eldernest.controller;
 
 import com.eldernest.entity.Investment;
 import com.eldernest.service.InvestmentService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -10,15 +11,10 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/v1/investments")
+@RequiredArgsConstructor
 public class InvestmentController {
 
     private final InvestmentService investmentService;
-
-    public InvestmentController(
-            InvestmentService investmentService
-    ) {
-        this.investmentService = investmentService;
-    }
 
     @PostMapping("/investor/{investorId}/plan/{planId}")
     public ResponseEntity<Investment> addInvestment(
@@ -26,16 +22,13 @@ public class InvestmentController {
             @PathVariable Long planId,
             @RequestBody Investment investment
     ) {
+
         Investment savedInvestment =
                 investmentService.addInvestment(
                         investorId,
                         planId,
                         investment
                 );
-
-        if (savedInvestment == null) {
-            return ResponseEntity.badRequest().build();
-        }
 
         return ResponseEntity
                 .status(HttpStatus.CREATED)
@@ -53,9 +46,9 @@ public class InvestmentController {
     public ResponseEntity<Investment> getInvestmentById(
             @PathVariable Long id
     ) {
-        return investmentService.getInvestmentById(id)
-                .map(ResponseEntity::ok)
-                .orElse(ResponseEntity.notFound().build());
+        return ResponseEntity.ok(
+                investmentService.getInvestmentById(id)
+        );
     }
 
     @GetMapping("/investor/{investorId}")
@@ -63,7 +56,8 @@ public class InvestmentController {
             @PathVariable Long investorId
     ) {
         return ResponseEntity.ok(
-                investmentService.getInvestmentsByInvestor(investorId)
+                investmentService
+                        .getInvestmentsByInvestor(investorId)
         );
     }
 
@@ -90,26 +84,16 @@ public class InvestmentController {
             @PathVariable Long id,
             @RequestBody Investment investment
     ) {
-        Investment updatedInvestment =
-                investmentService.updateInvestment(id, investment);
-
-        if (updatedInvestment == null) {
-            return ResponseEntity.notFound().build();
-        }
-
-        return ResponseEntity.ok(updatedInvestment);
+        return ResponseEntity.ok(
+                investmentService.updateInvestment(id, investment)
+        );
     }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteInvestment(
             @PathVariable Long id
     ) {
-        boolean deleted =
-                investmentService.deleteInvestment(id);
-
-        if (!deleted) {
-            return ResponseEntity.notFound().build();
-        }
+        investmentService.deleteInvestment(id);
 
         return ResponseEntity.noContent().build();
     }
