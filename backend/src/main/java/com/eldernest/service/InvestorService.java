@@ -1,38 +1,19 @@
 package com.eldernest.service;
 
 import com.eldernest.entity.Investor;
-import com.eldernest.entity.User;
 import com.eldernest.repository.InvestorRepository;
-import com.eldernest.repository.UserRepository;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
+@RequiredArgsConstructor
 public class InvestorService {
 
     private final InvestorRepository investorRepository;
-    private final UserRepository userRepository;
 
-    public InvestorService(
-            InvestorRepository investorRepository,
-            UserRepository userRepository
-    ) {
-        this.investorRepository = investorRepository;
-        this.userRepository = userRepository;
-    }
-
-    public Investor addInvestor(Long userId, Investor investor) {
-
-        Optional<User> existingUser = userRepository.findById(userId);
-
-        if (existingUser.isEmpty()) {
-            return null;
-        }
-
-        investor.setUser(existingUser.get());
-
+    public Investor addInvestor(Investor investor) {
         return investorRepository.save(investor);
     }
 
@@ -40,37 +21,29 @@ public class InvestorService {
         return investorRepository.findAll();
     }
 
-    public Optional<Investor> getInvestorById(Long id) {
-        return investorRepository.findById(id);
+    public Investor getInvestorById(Long id) {
+        return investorRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Investor not found"));
     }
 
-    public Investor updateInvestor(Long id, Investor updatedInvestor) {
+    public Investor updateInvestor(Long id, Investor investorDetails) {
 
-        Optional<Investor> existingInvestor =
-                investorRepository.findById(id);
+        Investor investor = investorRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Investor not found"));
 
-        if (existingInvestor.isEmpty()) {
-            return null;
-        }
-
-        Investor investor = existingInvestor.get();
-
-        investor.setAnnualIncome(updatedInvestor.getAnnualIncome());
-        investor.setOccupation(updatedInvestor.getOccupation());
-        investor.setRiskProfile(updatedInvestor.getRiskProfile());
-        investor.setNextOfKinName(updatedInvestor.getNextOfKinName());
-        investor.setNextOfKinPhone(updatedInvestor.getNextOfKinPhone());
+        investor.setOccupation(investorDetails.getOccupation());
+        investor.setAnnualIncome(investorDetails.getAnnualIncome());
+        investor.setRiskProfile(investorDetails.getRiskProfile());
+        investor.setUser(investorDetails.getUser());
 
         return investorRepository.save(investor);
     }
 
-    public boolean deleteInvestor(Long id) {
+    public void deleteInvestor(Long id) {
 
-        if (!investorRepository.existsById(id)) {
-            return false;
-        }
+        Investor investor = investorRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Investor not found"));
 
-        investorRepository.deleteById(id);
-        return true;
+        investorRepository.delete(investor);
     }
 }
