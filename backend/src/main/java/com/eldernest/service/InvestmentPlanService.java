@@ -18,36 +18,33 @@ public class InvestmentPlanService {
         this.investmentPlanRepository = investmentPlanRepository;
     }
 
+    // CREATE
     public InvestmentPlan addInvestmentPlan(
             InvestmentPlan investmentPlan
     ) {
         return investmentPlanRepository.save(investmentPlan);
     }
-
+    // GET ALL
     public List<InvestmentPlan> getAllInvestmentPlans() {
         return investmentPlanRepository.findAll();
     }
-
-    public Optional<InvestmentPlan> getInvestmentPlanById(Long id) {
-        return investmentPlanRepository.findById(id);
+    // GET BY ID
+    public InvestmentPlan getInvestmentPlanById(Long id) {
+        return investmentPlanRepository.findById(id).orElseThrow(() ->
+                new RuntimeException("Investment plan not found"));
     }
 
+    // GET ACTIVE PLANS
     public List<InvestmentPlan> getActiveInvestmentPlans() {
         return investmentPlanRepository.findByPlanStatus("ACTIVE");
     }
-
+    // UPDATE
     public InvestmentPlan updateInvestmentPlan(
             Long id,
             InvestmentPlan updatedPlan
     ) {
-        Optional<InvestmentPlan> existingPlan =
-                investmentPlanRepository.findById(id);
-
-        if (existingPlan.isEmpty()) {
-            return null;
-        }
-
-        InvestmentPlan plan = existingPlan.get();
+        InvestmentPlan plan =
+                investmentPlanRepository.findById(id).orElseThrow(()->new RuntimeException("Investment plan not found"));
 
         plan.setPlanName(updatedPlan.getPlanName());
         plan.setDescription(updatedPlan.getDescription());
@@ -59,12 +56,13 @@ public class InvestmentPlanService {
         return investmentPlanRepository.save(plan);
     }
 
-    public boolean deleteInvestmentPlan(Long id) {
-        if (!investmentPlanRepository.existsById(id)) {
-            return false;
-        }
+    // DELETE
+    public void deleteInvestmentPlan(Long id) {
 
-        investmentPlanRepository.deleteById(id);
-        return true;
+        InvestmentPlan plan = investmentPlanRepository.findById(id)
+                .orElseThrow(() ->
+                        new RuntimeException("Investment plan not found"));
+
+        investmentPlanRepository.delete(plan);
     }
 }
